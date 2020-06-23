@@ -35,7 +35,7 @@ const enhancer = compose(
     componentDidMount() {
       const { setData, setFilteredData } = this.props;
       axios
-        .get("http://ergast.com/api/f1/2004/1/results.json")
+        .get("https://ergast.com/api/f1/2004/1/results.json")
         .then(({ data }) => {
           const results = data.MRData.RaceTable.Races[0].Results;
 
@@ -105,6 +105,8 @@ const enhancer = compose(
       const sortedData = filteredData.sort((a, b) => {
         if (e === "driver" || e === "nationality" || e === "car") {
           return eval("a." + e) > eval("b." + e) ? 1 : -1;
+        } else if (e === "fastestLapTime") {
+          return a.fastestLapTime.substr(2) - b.fastestLapTime.substr(2);
         } else {
           return eval("a." + e) - eval("b." + e);
         }
