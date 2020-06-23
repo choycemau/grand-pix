@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+//Color Palette
+$red: #e10600;
+$lightColor: #ffffff;
+$grey: #f4f4f4;
+
+//Typography
+$fontHeadline: 60px;
+$fontTitle: 20px;
+$fontBody: 14px;
+
+//Flex
+@mixin flex(
+  $direction: column,
+  $justify: flex-start,
+  $align: flex-start,
+  $wrap: wrap
+) {
+  align-items: $align;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+}
+
+//Body
+body {
+  font-family: "Roboto", Helvetica, sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  outline: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+//App Shell
+:global(#root) {
+  @include flex($align: center);
+  font-size: $fontBody;
+  margin: 0 auto;
+  max-width: 100vw;
+  min-width: 1020px;
+}
+
+.container {
+  @include flex($justify: center);
+  width: 75%;
+  margin-bottom: 30px;
+}
+
+//BANNER
+.banner {
+  @include flex($align: center);
+  font-size: $fontHeadline;
+  font-weight: 700;
+  margin: 20px 0 50px;
+  text-transform: uppercase;
+  width: 100%;
+
+  label {
+    font-size: $fontTitle;
+  }
+
+  svg {
+    padding-inline-end: 5px;
+    width: 15px;
+  }
+
+  img {
+    height: 200px;
+  }
+}
+
+//SEARCH
+.search {
+  @include flex();
+  margin-bottom: 20px;
+  width: 100%;
+
+  input {
+    border: 1px solid $red;
+    border-radius: 5px;
+    font-size: $fontTitle;
+    height: 50px;
+    outline: none;
+    padding: 10px 20px;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+}
+
+/* TABLE */
+.table {
+  @include flex();
+  margin: 10px 0;
+  width: 100%;
+
+  .tableHeader {
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: pre-line;
+
+    .cell:hover {
+      color: $red;
+    }
+
+    svg {
+      display: none;
+      fill: $red;
+      width: 12px;
+    }
+
+    .inc {
+      display: inline;
+      padding-inline-start: 5px;
+    }
+
+    .dec {
+      display: inline;
+      padding-inline-end: 5px;
+      transform: rotate(180deg);
+    }
+  }
+
+  .tableRow {
+    @include flex(row, space-between, center, nowrap);
+    padding: 15px 10px 15px;
+    width: 100%;
+  }
+
+  .tableContent {
+    width: 100%;
+
+    .tableRow:nth-child(odd) {
+      background: $grey;
+    }
+
+    .noResult {
+      @include flex($align: center);
+      background: $grey;
+      font-size: $fontTitle;
+      padding: 15px 10px 15px;
+    }
+  }
+
+  @mixin cell-standard($width) {
+    @include flex(row, flex-start, center, nowrap);
+    padding: 0 10px;
+    max-width: $width;
+    width: $width;
+  }
+
+  .cell {
+    @include cell-standard(20%);
+  }
+
+  .widercell {
+    @include cell-standard(38%);
+  }
+
+  .widestcell {
+    @include cell-standard(60%);
+  }
+}
